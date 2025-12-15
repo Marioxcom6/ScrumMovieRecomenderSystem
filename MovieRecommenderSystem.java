@@ -8,13 +8,10 @@ public class MovieRecommenderSystem {
 
 
         HashMap<String,Integer> hashMap1 = new HashMap<>();
-        while (true){
-            String identificador = sc.nextLine();
-            buscarUsuarioporelnombre(hashMap1,identificador);
-        }
+
     }
     // Borrar el usuario
-    public static HashMap borrarUser(HashMap<String,Integer> hashMap,String usuario){
+    public static HashMap borrarUser(HashMap<String,String> hashMap,String usuario){
         if (hashMap.isEmpty()){
             System.out.println("The hashmap can't be null");
         }
@@ -25,7 +22,7 @@ public class MovieRecommenderSystem {
         return hashMap;
     }
     // buscar usuario por el nombre
-    public static void buscarUsuarioporelnombre(HashMap<String,Integer> hashMap,String usuario){
+    public static void buscarUsuarioporelnombre(HashMap<String,String> hashMap,String usuario){
         if (hashMap.isEmpty()){
             System.out.println("The hashmap can't be null");
         }
@@ -35,11 +32,11 @@ public class MovieRecommenderSystem {
         }
     }
     // mostrar todos los usuarios
-    public static void mostrarTodosLosUsuarios(HashMap<String,Integer> hashMap){
+    public static void mostrarTodosLosUsuarios(HashMap<String,String> hashMap){
         if (hashMap.isEmpty()){
             System.out.println("The hashmap can't be null");
         }
-        for (Map.Entry<String, Integer> each:hashMap.entrySet()){
+        for (Map.Entry<String, String> each:hashMap.entrySet()){
             String nombredeusuarios = each.getKey();
             System.out.println("This are the users: \n"+ nombredeusuarios);
         }
