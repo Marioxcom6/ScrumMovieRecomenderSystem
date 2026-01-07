@@ -5,80 +5,150 @@ public class MovieRecommenderSystem {
     public static final String PASSWORD_ADMIN = "Admin-010101";
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HashMap<String, String> users = new HashMap<>();
+        TreeSet<String> movies = new TreeSet<>();
 
 
+        users.put(USER_NAME_ADMIN, PASSWORD_ADMIN);
+
+        while (true) {
+            String currentUser = "";
+
+            run1:
+            while (true) {
+                System.out.println("\n-------------- MENU --------------\n1. Register\n2. Login\n3. Exit");
+                if(!sc.hasNextInt()) { sc.next(); continue; }
+                int choice = sc.nextInt();
+                sc.nextLine();
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("User: ");
+                        String regUser = sc.nextLine();
+                        System.out.print("Password: ");
+                        String regPass = sc.nextLine();
+                        System.out.println(registerUser(users, regUser, regPass));
+                        break;
+                    case 2:
+                        System.out.print("User: ");
+                        String logUser = sc.nextLine();
+                        System.out.print("Password: ");
+                        String logPass = sc.nextLine();
+
+                        String result = loginUser(users, logUser, logPass);
+                        if (users.containsKey(result)) {
+                            currentUser = result; // Guardamos quién entró
+                            break run1;
+                        } else {
+                            System.out.println(result);
+                        }
+                        break;
+                    case 3:
+                        System.out.println("Exiting...");
+                        return;
+                }
+            }
 
 
+            if (currentUser.equals(USER_NAME_ADMIN)) {
+                runAdmin:
+                while (true) {
+                    System.out.println("\n--- ADMIN MENU ---\n 1. Delete user\n2. Show all users\n3. Add movie\n4. Delete movie\n5. Show all movies\n6. Logout");
+                    int choice = sc.nextInt();
+                    sc.nextLine();
 
+                    switch (choice) {
+                        case 1:
+                            System.out.print("User to delete: ");
+                            System.out.println(deleteUser(users, sc.nextLine())); // Corregido sc.next
+                            break;
+                        case 2:
+                            showAllUsers(users);
+                            break;
+                        case 3:
+                            System.out.print("Movie name: ");
+                            System.out.println(addMovie(movies, sc.nextLine()));
+                            break;
+                        case 4:
+                            System.out.print("Movie to delete: ");
+                            System.out.println(deleteMovie(movies, sc.nextLine()));
+                            break;
+                        case 5:
+                            showAllMovies(movies);
+                            break;
+                        case 6:
+                            break runAdmin;
+                    }
+                }
+            }
+
+            else {
+                runUser:
+                while (true) {
+                    System.out.println("\n--- USER MENU ---\n1. Show all movies\n2. Find friends\n3. Logout");
+                    int choice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (choice) {
+                        case 1:
+                            showAllMovies(movies);
+                            break;
+                        case 2:
+                            System.out.print("Search user: ");
+                            System.out.println(findUserByName(users, sc.nextLine()));
+                            break;
+                        case 3:
+                            break runUser;
+                    }
+                }
+            }
+        }
     }
 
-    public static String registerUser( HashMap<String, String> user, String username, String password) {
-        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$")) {
-            return "The Password isn't correct! Need it: 1 Mayus, 1 Minus, 1 Symbol and 1 number";
-        }
 
+    public static String registerUser(HashMap<String, String> user, String username, String password) {
+        if (user.containsKey(username)) return "User already exists!";
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$")) {
+            return "Invalid Password! Needs: 1 Upper, 1 Lower, 1 Symbol and 1 Number (min 8 chars)";
+        }
         user.put(username, password);
-        return "User " + username + " Created!";
+        return "User " + username + " created!";
     }
 
     public static String loginUser(HashMap<String, String> user, String userName, String password) {
-        if (!user.containsKey(userName)) {
-            return "This Username doesn't Exist";
-
-        } else if (!user.get(userName).equals(password)) {
-            return "Password is in correct";
-        }
-
+        if (!user.containsKey(userName)) return "This Username doesn't exist";
+        if (!user.get(userName).equals(password)) return "Password is incorrect";
         return userName;
     }
 
-    public static String removeUser(HashMap<String,String> listUsers,String userName){
-        if (listUsers.containsKey(userName)){
-            listUsers.remove(userName);
-            return "User deleted: " + userName;
-
-        } else return "User " + userName + " doesn't Exists.";
+    public static String deleteUser(HashMap<String,String> listUsers, String userName){
+        if (userName.equals(USER_NAME_ADMIN)) return "Cannot delete Admin!";
+        return (listUsers.remove(userName) != null) ? "User deleted." : "User not found.";
     }
 
-    public static String findUserByName(HashMap<String,String> listUsers,String userName){
-        if (listUsers.containsKey(userName)){
-            String password = listUsers.get(userName);
-            return "Here is the user : " + userName + " Password "+ password;
-
-        } else return "User " + userName + " doesn't exist.";
+    public static String findUserByName(HashMap<String,String> listUsers, String userName){
+        return listUsers.containsKey(userName) ? "User " + userName + " found! Added as friend." : "User not found.";
     }
 
     public static void showAllUsers(HashMap<String,String> listUsers){
-        if (!listUsers.isEmpty()) {
-            System.out.println("This are the Users:");
-            for (Map.Entry<String, String> each : listUsers.entrySet()){
-                System.out.println(each.getKey() + " -> " + each.getValue());
-            }
-
-        } else System.out.println("There are no Users in the System");
+        if (listUsers.isEmpty()) {
+            System.out.println("No users.");
+        } else {
+            listUsers.forEach((k, v) -> System.out.println(k + " -> " + v));
+        }
     }
 
     public static String addMovie(TreeSet<String> listMovies, String nameMovie) {
-        if (listMovies.add(nameMovie)) {
-            return "The Movie '" + nameMovie + "' has been Added.";
-
-        } else return "The Movie '" + nameMovie + "' already Exists.";
+        return listMovies.add(nameMovie) ? "Movie added." : "Movie already exists.";
     }
 
-    public static String showMovieByName(TreeSet<String> listMovies, String nameMovie) {
-        if (listMovies.contains(nameMovie)) {
-            return "The Movie '" + nameMovie + "' is Exists.";
-
-        } else return "The Movie '" + nameMovie + "' doesn't Exists.";
+    public static String deleteMovie(TreeSet<String> listMovies, String nameMovie) {
+        return listMovies.remove(nameMovie) ? "Movie removed." : "Movie does not exist.";
     }
 
     public static void showAllMovies(TreeSet<String> listMovies){
-        if (!listMovies.isEmpty()) {
-            System.out.println("This are the Movies:");
-            for (String each : listMovies){
-                System.out.println(each);
-            }
-
-        } else System.out.println("There are no Movies in the System");
+        if (listMovies.isEmpty()) System.out.println("No movies available.");
+        else listMovies.forEach(System.out::println);
     }
 }
