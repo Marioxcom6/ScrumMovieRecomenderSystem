@@ -1,3 +1,5 @@
+package movieRecommender;
+
 import java.util.*;
 
 public class MovieRecommenderSystem {
@@ -67,11 +69,11 @@ public class MovieRecommenderSystem {
                             showAllUsers(users);
                             break;
                         case 3:
-                            System.out.print("Movie name: ");
+                            System.out.print("movieRecommender.Movie name: ");
                             System.out.println(addMovie(movies, sc.nextLine()));
                             break;
                         case 4:
-                            System.out.print("Movie to delete: ");
+                            System.out.print("movieRecommender.Movie to delete: ");
                             System.out.println(deleteMovie(movies, sc.nextLine()));
                             break;
                         case 5:
@@ -140,11 +142,11 @@ public class MovieRecommenderSystem {
     }
 
     public static String addMovie(TreeSet<String> listMovies, String nameMovie) {
-        return listMovies.add(nameMovie) ? "Movie added." : "Movie already exists.";
+        return listMovies.add(nameMovie) ? "movieRecommender.Movie added." : "movieRecommender.Movie already exists.";
     }
 
     public static String deleteMovie(TreeSet<String> listMovies, String nameMovie) {
-        return listMovies.remove(nameMovie) ? "Movie removed." : "Movie does not exist.";
+        return listMovies.remove(nameMovie) ? "movieRecommender.Movie removed." : "movieRecommender.Movie does not exist.";
     }
 
     public static void showAllMovies(TreeSet<String> listMovies){

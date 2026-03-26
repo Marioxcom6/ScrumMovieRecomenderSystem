@@ -1,3 +1,5 @@
+package movieRecommender;
+
 public enum Genre {
 
 

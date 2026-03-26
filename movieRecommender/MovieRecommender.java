@@ -1,3 +1,5 @@
+package movieRecommender;
+
 import java.util.List;
 
 public class MovieRecommender implements Notification<Movie>{
@@ -29,7 +31,7 @@ public class MovieRecommender implements Notification<Movie>{
 
         for (Movie movie:movies) {
             if (movie.getGenre().equals(userPreference.getGenre())){
-                System.out.println("Genre Movies"+ movie.getName());
+                System.out.println("movieRecommender.Genre Movies"+ movie.getName());
                 moviesShowable.add(movie.getName());
                 return true;
             }

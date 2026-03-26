@@ -1,4 +1,6 @@
-import java.time.LocalDate;
+package movieRecommender;
+
+import movieRecommender.Genre;
 
 public class UserPreference {
 
