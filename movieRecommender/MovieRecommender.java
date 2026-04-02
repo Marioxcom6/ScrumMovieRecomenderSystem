@@ -5,76 +5,68 @@ import java.util.List;
 public class MovieRecommender implements Notification<Movie>{
 
     private UserPreference userPreference;
-    private List<String> moviesShowable;
+    private List<Movie> moviesShowable;
+    private static int MINIMUM_MATCH = 2;
 
-
-    public MovieRecommender(UserPreference userPreference, List<String> moviesShowable) {
+    public MovieRecommender(UserPreference userPreference, List<Movie> moviesShowable) {
         this.userPreference = userPreference;
         this.moviesShowable = moviesShowable;
     }
-
-
-    public boolean getUserFavoriteActorMovies(List<Movie> movies){
-
-        for (Movie movie:movies) {
-            if (movie.getActors().contains(userPreference.getActorName())){
-                System.out.println("Actor Movies"+ movie.getName());
-
-                moviesShowable.add(movie.getName());
-                return true;
+    // He creado showMovies y addMovies para separar la logica ahora cada funcion hace solo una cosa
+    private boolean recommendedMovies(List<Movie> movies){
+        for (Movie movie:movies){
+            int score = scorebyActor(movie)+scorebyGenre(movie)+scorebyDirector(movie)+scorebyEra(movie);
+            if (score >= MINIMUM_MATCH){
+                addMovies(movie);
             }
-
+        }
+        return !isMovieEmpty(moviesShowable);
+    }
+    private boolean isMovieEmpty(List<Movie> movies){
+        if (movies.isEmpty()){
+            System.out.println("We couldn't find any movie for you! Sorry");
+            return true;
         }
         return false;
     }
-    public boolean getUserFavoriteGenerMovies(List<Movie> movies){
-
-        for (Movie movie:movies) {
-            if (movie.getGenre().equals(userPreference.getGenre())){
-                System.out.println("movieRecommender.Genre Movies"+ movie.getName());
-                moviesShowable.add(movie.getName());
-                return true;
-            }
-
-        }
-        return false;
+    private void addMovies(Movie movie){
+        moviesShowable.add(movie);
     }
 
-    public boolean getUserFavoriteDirectorMovies(List<Movie> movies){
+    private void showMovies(List<Movie> movies){
 
-        for (Movie movie:movies) {
-            if (movie.getDirector().equals(userPreference.getDirector())){
-                System.out.println("Director Movies"+ movie.getName());
-                moviesShowable.add(movie.getName());
-                return true;
-            }
-
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println(i+1 +" This movie matches your preference: "+  movies.get(i).getName());
         }
-        return false;
     }
-    public boolean getUserFavoriteEraMovies(List<Movie> movies){
+    private int scorebyActor(Movie movie){
+        return movie.getActors().contains(userPreference.getActorName()) ? 1:0;
+    }
+    private int scorebyGenre(Movie movie){
+        return movie.getGenre().equals(userPreference.getGenre()) ? 1:0;
+    }
 
-        for (Movie movie:movies) {
+    private int scorebyDirector(Movie movie){
+        return movie.getDirector().equals(userPreference.getDirector()) ? 1:0;
+    }
 
-            if (userPreference.compareDates(movie.getYear())) {
-                System.out.println("Year Movies"+ movie.getName());
-                moviesShowable.add(movie.getName());
-                return true;
-            }
-
-        }
-            return false;
-
+    private int scorebyEra(Movie movie){
+        return userPreference.compareDates(movie.getYear()) ? 1:0;
     }
 
 
     @Override
-    public boolean message(List<Movie> items) {
-        String message = "";
-        if (items.isEmpty()){
+    public boolean message(List<Movie> movies) {
+        if (isMovieEmpty(movies)){
             return false;
         }
-        return true;
+        boolean found = recommendedMovies(movies);
+
+        if (found){
+            showMovies(moviesShowable);
+            return true;
+        }
+        return false;
     }
 }
 

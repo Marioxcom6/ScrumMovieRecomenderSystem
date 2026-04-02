@@ -48,5 +48,18 @@ public class Movie {
     public int getYear() {
         return year;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", genre=" + genre +
+                ", actors=" + actors +
+                ", director='" + director + '\'' +
+                ", year=" + year +
+                '}';
+    }
 }
 
