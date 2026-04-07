@@ -6,8 +6,8 @@ En aquesta iteració hem definit els rols segons la metodologia **SCRUM** adapta
 | Membre | Rols SCRUM | Responsabilitats |
 | :--- | :--- | :--- |
 | **Mario** | Scrum Master i Desenvolupador | Coordinació del grup, resolució de bloquejos, integració del codi, suport en disseny |
-| **Prabin** | Product Owner i Desenvolupador | Definir requisits, prioritzar funcionalitats, gestió del projecte |
 | **Nizam** | Desenvolupador i Documentador | Implementació de funcionalitats i redacció de documentació |
+| **Prabin** | Product Owner i Desenvolupador | Definir requisits, prioritzar funcionalitats, gestió del projecte |
 | **Valeria** | Desenvolupadora i Dissenyadora | Disseny del catàleg i desenvolupament de funcionalitats visuals |
 
 ---
@@ -40,7 +40,7 @@ Durant aquesta iteració, l’equip ha planificat les següents tasques:
 
 ---
 
-## 3. Com es relaciona amb les RA’s
+# 3. Com es relaciona amb les RA’s
 Aquest projecte està relacionat principalment amb:
 
 * **RA3 – Ús d’estructures de dades**
