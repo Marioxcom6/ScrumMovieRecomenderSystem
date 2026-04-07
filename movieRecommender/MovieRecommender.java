@@ -1,16 +1,17 @@
 package movieRecommender;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieRecommender implements Notification<Movie>{
 
     private UserPreference userPreference;
     private List<Movie> moviesShowable;
-    private static int MINIMUM_MATCH = 2;
+    private final int MINIMUM_MATCH = 2;
 
-    public MovieRecommender(UserPreference userPreference, List<Movie> moviesShowable) {
+    public MovieRecommender(UserPreference userPreference) {
         this.userPreference = userPreference;
-        this.moviesShowable = moviesShowable;
+        this.moviesShowable = new ArrayList<>();
     }
     // He creado showMovies y addMovies para separar la logica ahora cada funcion hace solo una cosa
     private boolean recommendedMovies(List<Movie> movies){

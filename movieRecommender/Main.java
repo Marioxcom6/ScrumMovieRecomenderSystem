@@ -7,7 +7,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        // Movie list
         List<Movie> movies = new ArrayList<>();
 
         movies.add(new Movie(1, "Inception", "Sueños dentro de sueños",
@@ -30,7 +29,6 @@ public class Main {
                 Arrays.asList("Christian Bale", "Heath Ledger"),
                 "Christopher Nolan", 2008));
 
-        // User prefers: DiCaprio, Sci-Fi, Nolan, between 2000-2014
         UserPreference userPreference = new UserPreference(
                 "Leonardo DiCaprio",
                 Genre.SCI_FI,
@@ -39,17 +37,14 @@ public class Main {
                 2014
         );
 
-        // ✅ List<Movie> not List<String> — matches MovieRecommender
-        List<Movie> moviesShowable = new ArrayList<>();
-        List<Movie> favoriteMovies = new ArrayList<>();
 
-        MovieRecommender recommender = new MovieRecommender(userPreference, moviesShowable);
+        MovieRecommender recommender = new MovieRecommender(userPreference);
 
 
-        // ✅ Single call — message() handles everything internally
         recommender.message(movies);
-        Favorite favorite = new Favorite(favoriteMovies);
-        favorite.addMovie(moviesShowable.getFirst());
-        favorite.showMovies(favoriteMovies);
+        Favorite favorite = new Favorite();
+        favorite.addMovie(movies.get(0));
+        favorite.addMovie(movies.get(1));
+        favorite.showMovies();
     }
 }
