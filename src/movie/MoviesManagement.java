@@ -1,3 +1,5 @@
+package src.movie;
+
 public interface MoviesManagement {
 
     void addMovie(Movie movie);

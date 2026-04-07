@@ -1,6 +1,5 @@
-package movieRecommender;
+package src.movie;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Favorite {

@@ -1,3 +1,10 @@
+package src.user.superuser;
+
+import src.user.normaluser.User;
+import src.user.Visualize;
+import src.movie.Movie;
+import src.movie.MoviesManagement;
+
 public class SuperUserManagement implements MoviesManagement, AdministratorUser, Visualize {
     @Override
     public void addMovie(Movie movie) {

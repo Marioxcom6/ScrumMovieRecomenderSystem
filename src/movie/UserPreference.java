@@ -1,6 +1,4 @@
-package movieRecommender;
-
-import movieRecommender.Genre;
+package src.movie;
 
 public class UserPreference {
 

@@ -1,4 +1,4 @@
-package movieRecommender;
+package src.movie;
 
 public enum Genre {
 

@@ -1,4 +1,6 @@
-abstract class Person {
+package src.user;
+
+public abstract class Person {
     private String name;
     private String password;
 

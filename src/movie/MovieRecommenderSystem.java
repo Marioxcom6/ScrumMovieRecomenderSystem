@@ -1,4 +1,4 @@
-package movieRecommender;
+package src.movie;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ public class MovieRecommenderSystem {
     public static final String USER_NAME_ADMIN = "ADMIN";
     public static final String PASSWORD_ADMIN = "Admin-010101";
 
-    public static void main(String[] args) {
+     static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String, String> users = new HashMap<>();
         TreeSet<String> movies = new TreeSet<>();
@@ -69,11 +69,11 @@ public class MovieRecommenderSystem {
                             showAllUsers(users);
                             break;
                         case 3:
-                            System.out.print("movieRecommender.Movie name: ");
+                            System.out.print("src.movieRecommender.Movie name: ");
                             System.out.println(addMovie(movies, sc.nextLine()));
                             break;
                         case 4:
-                            System.out.print("movieRecommender.Movie to delete: ");
+                            System.out.print("src.movieRecommender.Movie to delete: ");
                             System.out.println(deleteMovie(movies, sc.nextLine()));
                             break;
                         case 5:
@@ -142,11 +142,11 @@ public class MovieRecommenderSystem {
     }
 
     public static String addMovie(TreeSet<String> listMovies, String nameMovie) {
-        return listMovies.add(nameMovie) ? "movieRecommender.Movie added." : "movieRecommender.Movie already exists.";
+        return listMovies.add(nameMovie) ? "src.movieRecommender.Movie added." : "src.movieRecommender.Movie already exists.";
     }
 
     public static String deleteMovie(TreeSet<String> listMovies, String nameMovie) {
-        return listMovies.remove(nameMovie) ? "movieRecommender.Movie removed." : "movieRecommender.Movie does not exist.";
+        return listMovies.remove(nameMovie) ? "src.movieRecommender.Movie removed." : "src.movieRecommender.Movie does not exist.";
     }
 
     public static void showAllMovies(TreeSet<String> listMovies){

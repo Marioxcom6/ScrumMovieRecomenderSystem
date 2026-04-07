@@ -1,3 +1,7 @@
+package src.user.normaluser;
+
+import src.user.Person;
+
 public class User extends Person {
     private int iD;
     private String email;

@@ -1,4 +1,4 @@
-package movieRecommender;
+package src.movie;
 
 import java.util.List;
 

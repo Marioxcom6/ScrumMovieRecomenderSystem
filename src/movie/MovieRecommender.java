@@ -1,9 +1,9 @@
-package movieRecommender;
+package src.movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRecommender implements Notification<Movie>{
+public class MovieRecommender implements Notification<Movie> {
 
     private UserPreference userPreference;
     private List<Movie> moviesShowable;
